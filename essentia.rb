@@ -44,9 +44,9 @@ class Essentia < Formula
       build_flags += ["--with-tensorflow"]
     end
 
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *build_flags
-    system Formula["python@3.9"].opt_bin/"python3", "waf"
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
+    system Formula["python@3.9"].opt_bin/"python3.9", "waf", "configure", *build_flags
+    system Formula["python@3.9"].opt_bin/"python3.9", "waf"
+    system Formula["python@3.9"].opt_bin/"python3.9", "waf", "install"
 
     python_flags = [
       "--mode=release",
@@ -58,15 +58,15 @@ class Essentia < Formula
     ENV['PKG_CONFIG_PATH'] = "#{prefix}/lib/pkgconfig:" + ENV['PKG_CONFIG_PATH']
 
     if build.with? "python"
-      system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *python_flags
-      system Formula["python@3.9"].opt_bin/"python3", "waf"
-      system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
+      system Formula["python@3.9"].opt_bin/"python3.9", "waf", "configure", *python_flags
+      system Formula["python@3.9"].opt_bin/"python3.9", "waf"
+      system Formula["python@3.9"].opt_bin/"python3.9", "waf", "install"
 
       resource("six").stage do
-        system Formula["python@3.9"].opt_bin/"python3", *Language::Python.setup_install_args(libexec)
+        system Formula["python@3.9"].opt_bin/"python3.9", *Language::Python.setup_install_args(libexec)
       end
 
-      version = Language::Python.major_minor_version Formula["python@3.9"].opt_bin/"python3"
+      version = Language::Python.major_minor_version Formula["python@3.9"].opt_bin/"python3.9"
       site_packages = "lib/python#{version}/site-packages"
       pth_contents = "import site; site.addsitedir('#{libexec/site_packages}')\n"
       (prefix/site_packages/"homebrew-essentia.pth").write pth_contents
@@ -85,7 +85,7 @@ class Essentia < Formula
     EOS
 
     if build.with? "python"
-      system Formula["python@3.9"].opt_bin/"python3", "-c", "#{py_test}"
+      system Formula["python@3.9"].opt_bin/"python3.9", "-c", "#{py_test}"
     end
   end
 end
